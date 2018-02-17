@@ -1,6 +1,8 @@
 require "httparty"
+require "json"
 
 class Kele
+    include JSON
     include HTTParty
     attr_accessor :bloc, :auth_token
     
@@ -12,5 +14,11 @@ class Kele
         else
             raise ArgumentError.new("Invalid username and/or password")
         end
+    end
+    
+    def get_me
+       response = self.class.get('https://www.bloc.io/api/v1/users/me', headers: { "authorization" => @auth_token }).body 
+       parsed_result = JSON.parse response
+       return parsed_result
     end
 end
