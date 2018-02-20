@@ -1,9 +1,11 @@
 require "httparty"
 require "json"
 
+
 class Kele
     include JSON
     include HTTParty
+    include Roadmap
     attr_accessor :bloc, :auth_token
     
     def initialize(username, password)
