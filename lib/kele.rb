@@ -24,14 +24,11 @@ class Kele
     end
     
     def get_mentor_availability(id=nil)
-       if id
-           mentor_id = id
+       if id.nil?
+           mentor_id = get_me["current_enrollment"]["mentor_id"]
        else
-          user_info = self.get_me()
-          mentor_id = user_info["current_enrollment"]["mentor_id"]   
+           mentor_id = id
        end
-       print mentor_id
-       response = self.class.get("https://www.bloc.io/api/v1/mentors/#{mentor_id}/student_availability", headers: { "authorization" => @auth_token }).body 
-       JSON.parse response
+       JSON.parse self.class.get("https://www.bloc.io/api/v1/mentors/#{mentor_id}/student_availability", headers: { "authorization" => @auth_token }).body 
     end
 end
