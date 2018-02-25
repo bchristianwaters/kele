@@ -1,6 +1,6 @@
 require "httparty"
 require "json"
-
+require './lib/roadmap'
 
 
 class Kele
@@ -44,5 +44,10 @@ class Kele
     
     def create_message(recipient_id, subject, body)
        self.class.post("#{@bloc}/messages", headers: { "authorization" => @auth_token }, query: { sender: @username, recipient_id: recipient_id, subject: subject, "stripped-text" => body})
+    end    
+    
+    def create_submission(checkpoint_id, assignment_branch, assignment_commit_link, comment)
+       enrollment_id = get_me()["current_enrollment"]["id"] 
+       self.class.post("#{@bloc}/checkpoint_submissions", headers: {"authorization" => @auth_token }, query: {assignment_branch: assignment_branch, assignment_commit_link: assignment_commit_link, checkpoint_id: checkpoint_id, comment: comment, enrollment_id: enrollment_id}) 
     end    
 end

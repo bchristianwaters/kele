@@ -2,7 +2,7 @@ module Roadmap
     def get_roadmap(roadmap=nil)
        if roadmap.nil?
           user_info = self.get_me() 
-          roadmap = user_info["current_enrollment"]["roadmap_id"]
+          roadmap = user_info["current_program_module"]["id"]
        end
         
        response = self.class.get("#{@bloc}/roadmaps/#{roadmap}", headers: { "authorization" => @auth_token }).body 
