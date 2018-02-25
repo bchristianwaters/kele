@@ -5,7 +5,7 @@ module Roadmap
           roadmap = user_info["current_enrollment"]["roadmap_id"]
        end
         
-       response = self.class.get("https://www.bloc.io/api/v1/roadmaps/#{roadmap}", headers: { "authorization" => @auth_token }).body 
+       response = self.class.get("#{@bloc}/roadmaps/#{roadmap}", headers: { "authorization" => @auth_token }).body 
        JSON.parse response
 
     end
@@ -16,7 +16,7 @@ module Roadmap
           checkpoint = roadmap_info["sections"][0]["checkpoints"][0]["id"]
        end
         
-       response = self.class.get("https://www.bloc.io/api/v1/checkpoints/#{checkpoint}", headers: { "authorization" => @auth_token }).body 
+       response = self.class.get("#{@bloc}/checkpoints/#{checkpoint}", headers: { "authorization" => @auth_token }).body 
        JSON.parse response
     
     end 
